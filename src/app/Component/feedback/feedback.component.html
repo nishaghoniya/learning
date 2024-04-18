@@ -1,0 +1,47 @@
+<div *ngIf="isOpen">
+    <div class="alert alert-primary" role="alert">
+        Form Submitted Successfully!
+    </div>
+</div>
+<div class="parent container d-flex justify-content-center align-items-center" style="margin-top: 20px;">
+    <form style="width: 50%;" #feedbackForm="ngForm"
+        (ngSubmit)="feedbackForm.form.valid && onSubmit(feedbackForm.value)">
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input type="email" [(ngModel)]="model.email" #email="ngModel" name='email' class="form-control"
+                id="exampleInputEmail1" aria-describedby="emailHelp" required
+                [ngClass]="{ 'is-invalid': feedbackForm.submitted && email.invalid }">
+            <div class="invalid-feedback" *ngIf="feedbackForm.submitted && email.invalid">
+                <p *ngIf="email.invalid">Email is required</p>
+            </div>
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Name</label>
+            <input type="text" class="form-control" [(ngModel)]='model.name' required name='name' #name="ngModel"
+                [ngClass]="{ 'is-invalid': feedbackForm.submitted && name.invalid }" id="exampleInputPassword1">
+            <div class="invalid-feedback" *ngIf="feedbackForm.submitted && name.invalid">
+                <p *ngIf="name.invalid">Name is required</p>
+            </div>
+        </div>
+        <div class="form-floating mb-3">
+            <select class="form-select" [(ngModel)]='model.education' name="educationType" id="floatingSelect"
+                aria-label="Floating label select example">
+                <option selected>Open this select menu</option>
+                <option [ngValue]="'bachelor'" value="bachelor">Bachelor</option>
+                <option [ngValue]="'master'" value="master">Master</option>
+                <option [ngValue]="'ph.d'" value="ph.d">Ph.D</option>
+            </select>
+            <label for="floatingSelect">Type of Education</label>
+        </div>
+        <div class="form-floating mb-3">
+            <textarea class="form-control" [(ngModel)]='model.feedback' name='feedback'
+                placeholder="Leave a comment here" id="floatingTextarea"></textarea>
+            <label for="floatingTextarea">Feedback</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+<div class="invalid-feedback" *ngIf="feedbackForm.submitted && name.invalid">
+    <p *ngIf="name.invalid">Name is required</p>
+</div>
